@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Rafaela Conta">
+<meta name="theme-color" content="#7C3AED">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<title>Rafaela Contadora 💼</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+:root {
+  --pink:#FF6B9D; --purple:#7C3AED; --yellow:#FFD700; --mint:#00D4AA;
+  --coral:#FF6B6B; --dark:#1a0a2e; --card:#2d1b69; --text:#f0e6ff;
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overscroll-behavior:none;}
+body{font-family:'Nunito',sans-serif;background:var(--dark);color:var(--text);
+  min-height:100vh;overflow-x:hidden;-webkit-user-select:none;user-select:none;}
+
+/* STARS */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 20% 50%,#1a0a4e 0%,transparent 60%),
+  radial-gradient(ellipse at 80% 20%,#0a1a3e 0%,transparent 60%),var(--dark);}
+.stars::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(2px 2px at 20px 30px,#fff8,transparent),
+  radial-gradient(1px 1px at 60px 80px,#fff6,transparent),radial-gradient(2px 2px at 110px 15px,#fffd,transparent),
+  radial-gradient(1px 1px at 180px 70px,#fff7,transparent),radial-gradient(2px 2px at 250px 40px,#fffb,transparent),
+  radial-gradient(1px 1px at 330px 90px,#fff8,transparent),radial-gradient(2px 2px at 420px 25px,#fffd,transparent),
+  radial-gradient(1px 1px at 500px 60px,#fff6,transparent),radial-gradient(2px 2px at 580px 10px,#fffb,transparent);
+  background-size:620px 100px;animation:twinkle 4s ease-in-out infinite alternate;}
+@keyframes twinkle{0%{opacity:.5}100%{opacity:1}}
+
+/* SCREENS */
+.screen{position:relative;z-index:1;min-height:100vh;display:none;flex-direction:column;
+  align-items:center;padding:calc(var(--safe-top)+14px) 14px calc(var(--safe-bottom)+14px);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.screen.active{display:flex;}
+
+/* ===== TITLE ===== */
+#screen-title{justify-content:center;text-align:center;gap:16px;}
+
+.logo-container{position:relative;display:inline-block;}
+.logo-badge{
+  background:linear-gradient(135deg,#1a0a2e,#2d1b69);
+  border:3px solid var(--yellow);
+  border-radius:28px;
+  padding:18px 28px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 40px rgba(255,215,0,0.3);
+}
+.logo-badge::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(45deg,transparent 30%,rgba(255,215,0,0.05) 50%,transparent 70%);
+  animation:shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.logo-icons{font-size:2rem;letter-spacing:4px;margin-bottom:6px;display:block;}
+.logo-title{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(2rem,9vw,3.5rem);
+  background:linear-gradient(135deg,var(--pink),var(--yellow),var(--mint));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 20px rgba(255,107,157,0.4));
+  animation:titleFloat 3s ease-in-out infinite;line-height:1.1;
+}
+@keyframes titleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.logo-tagline{
+  font-size:.8rem;color:var(--mint);font-family:'Fredoka One',cursive;
+  letter-spacing:2px;margin-top:4px;display:block;
+}
+.logo-coins{position:absolute;font-size:1.4rem;animation:coinSpin 4s ease-in-out infinite;}
+.logo-coins.c1{top:-8px;right:-8px;animation-delay:0s;}
+.logo-coins.c2{bottom:-8px;left:-8px;animation-delay:1.5s;}
+@keyframes coinSpin{0%,100%{transform:rotate(-10deg) scale(1)}50%{transform:rotate(10deg) scale(1.2)}}
+
+.title-subtitle{font-size:.95rem;color:#c4b5fd;max-width:320px;line-height:1.55;}
+
+/* PERSONAGENS */
+.characters-preview{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.char-card{
+  background:rgba(124,58,237,0.25);border:2px solid rgba(255,107,157,0.35);
+  border-radius:18px;padding:14px 10px;text-align:center;width:96px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  animation:charFloat 3s ease-in-out infinite;
+}
+.char-card:nth-child(2){animation-delay:.8s;border-color:rgba(0,212,170,0.4);}
+.char-card:nth-child(3){animation-delay:1.6s;border-color:rgba(255,215,0,0.4);}
+@keyframes charFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* AVATARES SVG */
+.char-avatar-wrap{width:60px;height:60px;margin:0 auto 8px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,0.2);}
+.char-avatar-wrap svg{width:100%;height:100%;}
+.char-name{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--yellow);}
+.char-role{font-size:.62rem;color:#a78bfa;margin-top:2px;line-height:1.3;}
+
+.btn-play{
+  background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;
+  padding:16px 44px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.4rem;
+  cursor:pointer;box-shadow:0 8px 30px rgba(255,107,157,0.5);transition:transform .15s;letter-spacing:1px;
+}
+.btn-play:active{transform:scale(0.96);}
+
+/* ===== MAP ===== */
+#screen-map{align-items:center;gap:14px;}
+.map-title{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--yellow);text-shadow:0 0 20px rgba(255,215,0,0.4);}
+.hud{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.hud-item{background:rgba(124,58,237,0.4);border:1px solid rgba(255,215,0,0.3);border-radius:10px;
+  padding:6px 12px;font-size:.8rem;display:flex;align-items:center;gap:5px;}
+.hud-item .val{font-family:'Fredoka One',cursive;color:var(--yellow);font-size:1rem;}
+.xp-bar-container{width:90%;max-width:420px;background:rgba(255,255,255,0.1);border-radius:10px;height:8px;overflow:hidden;}
+.xp-bar{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--pink),var(--yellow));transition:width .5s ease;}
+.map-path{display:flex;flex-direction:column;align-items:center;width:100%;max-width:430px;}
+.level-node{display:flex;flex-direction:column;align-items:center;width:100%;}
+.level-btn{background:rgba(45,27,105,0.8);border:3px solid transparent;border-radius:16px;
+  padding:12px 16px;cursor:pointer;transition:transform .15s;width:93%;display:flex;align-items:center;
+  gap:10px;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);text-align:left;}
+.level-btn.unlocked{border-color:var(--mint);background:rgba(0,212,170,0.12);}
+.level-btn.completed{border-color:var(--yellow);background:rgba(255,215,0,0.12);}
+.level-btn.locked{border-color:rgba(255,255,255,0.08);opacity:.45;cursor:not-allowed;}
+.level-btn.current{border-color:var(--pink);background:rgba(255,107,157,0.18);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,157,0.4)}50%{box-shadow:0 0 0 10px rgba(255,107,157,0)}}
+.level-btn:not(.locked):active{transform:scale(0.97);}
+.level-icon{font-size:1.9rem;min-width:34px;text-align:center;}
+.level-info h3{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--yellow);}
+.level-info p{font-size:.7rem;color:#c4b5fd;margin-top:2px;}
+.level-status{margin-left:auto;font-size:1.1rem;}
+.path-connector{width:3px;height:20px;background:linear-gradient(to bottom,var(--mint),var(--purple));opacity:.4;}
+
+/* ===== GAME ===== */
+#screen-game{gap:10px;max-width:500px;width:100%;align-self:center;padding-top:calc(var(--safe-top)+10px);}
+.game-header{width:100%;display:flex;align-items:center;gap:7px;flex-wrap:nowrap;}
+.game-level-tag{background:linear-gradient(135deg,var(--purple),var(--pink));border-radius:14px;
+  padding:5px 11px;font-family:'Fredoka One',cursive;font-size:.78rem;white-space:nowrap;}
+.game-timer{background:rgba(255,107,107,0.2);border:1px solid var(--coral);border-radius:10px;
+  padding:5px 10px;font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--coral);
+  margin-left:auto;white-space:nowrap;}
+.game-timer.warning{animation:timerWarn .5s ease-in-out infinite;}
+@keyframes timerWarn{0%,100%{background:rgba(255,107,107,0.2)}50%{background:rgba(255,107,107,0.6)}}
+.game-score{background:rgba(255,215,0,0.2);border:1px solid var(--yellow);border-radius:10px;
+  padding:5px 10px;font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--yellow);white-space:nowrap;}
+.stars-display{display:flex;gap:2px;}
+.star{font-size:1rem;filter:grayscale(1) opacity(.3);}
+.star.filled{filter:none;}
+
+/* Timer bar */
+.timer-bar-wrap{width:100%;height:6px;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;}
+.timer-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--mint),var(--yellow));
+  transition:width 1s linear;width:100%;}
+.timer-bar.low{background:linear-gradient(90deg,var(--coral),#ff3333);}
+
+.scene-box{width:100%;background:linear-gradient(135deg,rgba(45,27,105,.88),rgba(26,10,46,.96));
+  border:2px solid rgba(124,58,237,.5);border-radius:18px;padding:16px 14px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:relative;overflow:hidden;}
+.scene-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--pink),var(--purple),var(--mint));}
+.scene-illustration{font-size:3rem;text-align:center;margin-bottom:8px;animation:bounce .9s ease-in-out infinite alternate;}
+@keyframes bounce{0%{transform:scale(1)}100%{transform:scale(1.07)}}
+.question-text{font-size:clamp(.88rem,3.2vw,1rem);line-height:1.55;color:#e0d4ff;text-align:center;}
+
+.answers-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;}
+.answer-btn{background:rgba(45,27,105,.7);border:2px solid rgba(124,58,237,.4);border-radius:13px;
+  padding:13px 10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:clamp(.78rem,2.8vw,.88rem);
+  font-weight:700;cursor:pointer;transition:border-color .15s,background .15s,transform .1s;
+  text-align:left;line-height:1.35;min-height:54px;}
+.answer-btn:active:not(:disabled){border-color:var(--pink);background:rgba(255,107,157,.22);transform:scale(.97);}
+.answer-btn.correct{border-color:var(--mint);background:rgba(0,212,170,.25);animation:correctPop .5s ease;}
+.answer-btn.wrong{border-color:var(--coral);background:rgba(255,107,107,.25);animation:shake .4s ease;}
+.answer-btn:disabled{cursor:not-allowed;}
+@keyframes correctPop{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+
+/* JESSICA BUBBLE */
+.jessica-bubble{display:none;border:2px solid var(--mint);border-radius:16px;
+  padding:12px 14px;width:100%;animation:slideIn .35s ease;}
+.jessica-bubble.visible{display:flex;gap:10px;align-items:flex-start;}
+.jessica-bubble.bronca{border-color:var(--coral);background:linear-gradient(135deg,rgba(255,107,107,.15),rgba(255,107,107,.05));}
+.jessica-bubble.dica{background:linear-gradient(135deg,rgba(0,212,170,.15),rgba(0,212,170,.05));}
+.jessica-bubble.parabens{border-color:var(--yellow);background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,215,0,.05));}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.jessica-avatar-small{width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid var(--mint);flex-shrink:0;}
+.jessica-avatar-small.bronca-border{border-color:var(--coral);}
+.jessica-avatar-small.parabens-border{border-color:var(--yellow);}
+.jessica-avatar-small svg{width:100%;height:100%;}
+.jessica-text h4{font-family:'Fredoka One',cursive;color:var(--mint);margin-bottom:3px;font-size:.88rem;}
+.jessica-text h4.bronca-title{color:var(--coral);}
+.jessica-text h4.parabens-title{color:var(--yellow);}
+.jessica-text p{font-size:.8rem;color:#e0d4ff;line-height:1.42;}
+
+.game-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;width:100%;}
+.btn-hint{background:rgba(0,212,170,.15);border:1px solid var(--mint);color:var(--mint);
+  padding:9px 16px;border-radius:20px;font-family:'Fredoka One',cursive;cursor:pointer;font-size:.85rem;transition:transform .1s;}
+.btn-hint:active{transform:scale(.95);}
+.btn-map{background:rgba(124,58,237,.2);border:1px solid var(--purple);color:#a78bfa;
+  padding:9px 16px;border-radius:20px;font-family:'Fredoka One',cursive;cursor:pointer;font-size:.85rem;transition:transform .1s;}
+.btn-map:active{transform:scale(.95);}
+
+/* ===== FEEDBACK SCREEN ===== */
+#screen-feedback{gap:14px;max-width:500px;width:100%;align-self:center;padding-top:calc(var(--safe-top)+16px);}
+.feedback-header{text-align:center;}
+.feedback-header h2{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--yellow);margin-bottom:4px;}
+.feedback-header p{font-size:.85rem;color:#c4b5fd;}
+
+.stat-box{background:rgba(45,27,105,.7);border:2px solid rgba(124,58,237,.4);border-radius:18px;padding:18px;width:100%;}
+.stat-box h3{font-family:'Fredoka One',cursive;color:var(--mint);margin-bottom:12px;font-size:1rem;}
+.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.stat-label{font-size:.85rem;color:#c4b5fd;}
+.stat-val{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--yellow);}
+.stat-bar-wrap{width:100%;height:8px;background:rgba(255,255,255,.1);border-radius:8px;overflow:hidden;margin-top:4px;}
+.stat-bar{height:100%;border-radius:8px;transition:width .8s ease;}
+.stat-bar.good{background:linear-gradient(90deg,var(--mint),#00b891);}
+.stat-bar.mid{background:linear-gradient(90deg,var(--yellow),#e6a800);}
+.stat-bar.bad{background:linear-gradient(90deg,var(--coral),#cc3030);}
+
+.errors-box{background:rgba(255,107,107,.1);border:2px solid rgba(255,107,107,.3);border-radius:18px;padding:18px;width:100%;}
+.errors-box h3{font-family:'Fredoka One',cursive;color:var(--coral);margin-bottom:12px;font-size:1rem;}
+.error-item{background:rgba(45,27,105,.5);border-radius:12px;padding:12px;margin-bottom:8px;}
+.error-q{font-size:.82rem;color:#c4b5fd;margin-bottom:6px;line-height:1.4;}
+.error-wrong{font-size:.8rem;color:var(--coral);margin-bottom:4px;}
+.error-right{font-size:.8rem;color:var(--mint);}
+.error-explain{font-size:.78rem;color:#a78bfa;margin-top:6px;line-height:1.4;font-style:italic;}
+
+.letter-card{background:linear-gradient(135deg,rgba(255,107,157,.15),rgba(124,58,237,.15));
+  border:2px solid var(--pink);border-radius:18px;padding:18px;width:100%;}
+.letter-card .letter-from{font-family:'Fredoka One',cursive;color:var(--pink);font-size:.9rem;margin-bottom:8px;}
+.letter-card p{font-style:italic;font-size:.88rem;line-height:1.7;color:#fef3c7;}
+.letter-card .letter-sig{text-align:right;font-family:'Fredoka One',cursive;color:var(--yellow);margin-top:8px;font-size:.95rem;}
+
+.btn-next-phase{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;
+  padding:16px 40px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.2rem;
+  cursor:pointer;box-shadow:0 6px 24px rgba(255,107,157,.5);transition:transform .15s;width:100%;}
+.btn-next-phase:active{transform:scale(.97);}
+
+/* ===== MODAL ===== */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;
+  z-index:100;padding:20px;padding-bottom:calc(var(--safe-bottom)+20px);}
+.overlay.visible{display:flex;}
+.modal{background:linear-gradient(135deg,var(--card),#1a0a2e);border:2px solid var(--yellow);
+  border-radius:22px;padding:26px 20px;max-width:420px;width:100%;text-align:center;
+  animation:modalPop .4s cubic-bezier(0.34,1.56,0.64,1);max-height:85vh;overflow-y:auto;}
+@keyframes modalPop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.modal-emoji{font-size:3rem;margin-bottom:8px;display:block;}
+.modal h2{font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--yellow);margin-bottom:8px;}
+.modal .letter-content{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
+  border-radius:12px;padding:14px;font-style:italic;color:#fef3c7;margin-bottom:14px;font-size:.88rem;line-height:1.75;text-align:left;}
+.modal .letter-signature{text-align:right;font-family:'Fredoka One',cursive;color:var(--pink);font-size:.95rem;margin-bottom:14px;}
+.btn-modal{background:linear-gradient(135deg,var(--yellow),var(--coral));color:#1a0a2e;border:none;
+  padding:14px 30px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.1rem;
+  cursor:pointer;width:100%;transition:transform .15s;}
+.btn-modal:active{transform:scale(.97);}
+
+/* TOAST */
+.toast{position:fixed;top:calc(var(--safe-top)+14px);left:50%;transform:translateX(-50%) translateY(-90px);
+  background:linear-gradient(135deg,var(--mint),#00b891);color:#003d30;padding:10px 22px;
+  border-radius:50px;font-family:'Fredoka One',cursive;font-size:.95rem;z-index:200;
+  transition:transform .4s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;
+  white-space:nowrap;max-width:88vw;overflow:hidden;text-overflow:ellipsis;}
+.toast.wrong-toast{background:linear-gradient(135deg,var(--coral),#cc3030);color:white;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* FINAL */
+#screen-final{justify-content:center;text-align:center;gap:16px;padding-top:calc(var(--safe-top)+20px);}
+.final-hearts{font-size:2.4rem;animation:heartBeat .8s ease-in-out infinite;}
+@keyframes heartBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.final-title{font-family:'Fredoka One',cursive;font-size:clamp(1.7rem,7vw,2.8rem);
+  background:linear-gradient(135deg,var(--pink),var(--yellow));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;}
+.final-score-box{background:rgba(255,215,0,.15);border:2px solid var(--yellow);border-radius:16px;
+  padding:16px 28px;font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--yellow);}
+.final-luan-letter{background:linear-gradient(135deg,rgba(255,107,157,.18),rgba(124,58,237,.18));
+  border:2px solid var(--pink);border-radius:16px;padding:18px;max-width:400px;
+  font-style:italic;line-height:1.75;font-size:.88rem;text-align:left;}
+.final-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+
+/* CONFETTI */
+.confetti-piece{position:fixed;pointer-events:none;z-index:300;border-radius:2px;animation:confettiFall linear forwards;}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+@media(max-width:370px){
+  .answers-grid{grid-template-columns:1fr;}
+  .characters-preview{gap:7px;}
+  .char-card{width:86px;padding:10px 7px;}
+}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="toast" id="toast">✅ Correto!</div>
+
+<!-- OVERLAY MODAL (cartas do Luan entre fases) -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <span class="modal-emoji" id="modal-emoji">💌</span>
+    <h2 id="modal-title">Carta do Dr. Luan!</h2>
+    <div class="letter-content" id="modal-letter"></div>
+    <p class="letter-signature" id="modal-sig">— Dr. Luan 💙</p>
+    <button class="btn-modal" id="modal-btn">Continuar! 🚀</button>
+  </div>
+</div>
+
+<!-- ===== TITLE ===== -->
+<div class="screen active" id="screen-title">
+  <div class="logo-container">
+    <div class="logo-badge">
+      <span class="logo-coins c1">🪙</span>
+      <span class="logo-coins c2">📊</span>
+      <span class="logo-icons">📒 🧮 💼</span>
+      <div class="logo-title">Rafaela<br>Contadora</div>
+      <span class="logo-tagline">⚖️ SALVE O DR. LUAN! ⚖️</span>
+    </div>
+  </div>
+
+  <p class="title-subtitle">Uma aventura épica de contabilidade, tributos e amor! 12 fases para dominar o universo fiscal brasileiro! 🇧🇷</p>
+
+  <div class="characters-preview">
+    <!-- Rafaela: branca, loira, óculos -->
+    <div class="char-card">
+      <div class="char-avatar-wrap">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <rect width="60" height="60" fill="#7C3AED"/>
+          <!-- Corpo -->
+          <rect x="18" y="38" width="24" height="18" rx="4" fill="#1a5276"/>
+          <!-- Pescoço -->
+          <rect x="26" y="33" width="8" height="7" fill="#FDBCB4"/>
+          <!-- Rosto -->
+          <ellipse cx="30" cy="26" rx="13" ry="14" fill="#FDBCB4"/>
+          <!-- Cabelo loiro -->
+          <ellipse cx="30" cy="16" rx="13" ry="8" fill="#FFD700"/>
+          <rect x="17" y="16" width="5" height="14" rx="2" fill="#FFD700"/>
+          <rect x="38" y="16" width="5" height="14" rx="2" fill="#FFD700"/>
+          <!-- Olhos -->
+          <ellipse cx="24" cy="26" rx="3" ry="3.5" fill="white"/>
+          <ellipse cx="36" cy="26" rx="3" ry="3.5" fill="white"/>
+          <circle cx="24" cy="27" r="2" fill="#4a90e2"/>
+          <circle cx="36" cy="27" r="2" fill="#4a90e2"/>
+          <circle cx="24.8" cy="26.2" r=".7" fill="white"/>
+          <circle cx="36.8" cy="26.2" r=".7" fill="white"/>
+          <!-- Óculos -->
+          <rect x="20" y="23" width="8" height="6" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="32" y="23" width="8" height="6" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <line x1="28" y1="26" x2="32" y2="26" stroke="#333" stroke-width="1.5"/>
+          <!-- Boca -->
+          <path d="M26 33 Q30 36 34 33" fill="none" stroke="#c0696b" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Gravata -->
+          <polygon points="30,38 27,44 30,43 33,44" fill="#FF6B9D"/>
+        </svg>
+      </div>
+      <div class="char-name">Rafaela</div>
+      <div class="char-role">Contadora Heroína</div>
+    </div>
+
+    <!-- Jéssica: morena, cabelo preto cacheado -->
+    <div class="char-card">
+      <div class="char-avatar-wrap">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <rect width="60" height="60" fill="#00796B"/>
+          <!-- Corpo -->
+          <rect x="18" y="38" width="24" height="18" rx="4" fill="#00D4AA"/>
+          <!-- Pescoço -->
+          <rect x="26" y="33" width="8" height="7" fill="#8D5524"/>
+          <!-- Rosto -->
+          <ellipse cx="30" cy="26" rx="13" ry="14" fill="#8D5524"/>
+          <!-- Cabelo cacheado preto -->
+          <ellipse cx="30" cy="14" rx="15" ry="10" fill="#1a1a1a"/>
+          <ellipse cx="17" cy="22" rx="5" ry="8" fill="#1a1a1a"/>
+          <ellipse cx="43" cy="22" rx="5" ry="8" fill="#1a1a1a"/>
+          <ellipse cx="22" cy="13" rx="5" ry="5" fill="#1a1a1a"/>
+          <ellipse cx="38" cy="13" rx="5" ry="5" fill="#1a1a1a"/>
+          <ellipse cx="30" cy="11" rx="6" ry="5" fill="#1a1a1a"/>
+          <!-- Olhos -->
+          <ellipse cx="24" cy="26" rx="3" ry="3.5" fill="white"/>
+          <ellipse cx="36" cy="26" rx="3" ry="3.5" fill="white"/>
+          <circle cx="24" cy="27" r="2" fill="#1a1a1a"/>
+          <circle cx="36" cy="27" r="2" fill="#1a1a1a"/>
+          <circle cx="24.7" cy="26.3" r=".6" fill="white"/>
+          <circle cx="36.7" cy="26.3" r=".6" fill="white"/>
+          <!-- Boca -->
+          <path d="M26 33 Q30 37 34 33" fill="none" stroke="#6b2d2d" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Colar -->
+          <circle cx="30" cy="39" r="2" fill="#FFD700"/>
+        </svg>
+      </div>
+      <div class="char-name">Jéssica</div>
+      <div class="char-role">Mentora Especialista</div>
+    </div>
+
+    <!-- Dr. Luan: branco, cabelos castanhos claros -->
+    <div class="char-card">
+      <div class="char-avatar-wrap">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <rect width="60" height="60" fill="#1a3a5c"/>
+          <!-- Corpo / terno -->
+          <rect x="16" y="38" width="28" height="18" rx="4" fill="#2c3e50"/>
+          <rect x="24" y="38" width="12" height="18" fill="#1a252f"/>
+          <!-- Gravata -->
+          <polygon points="30,38 28,46 30,44 32,46" fill="#FFD700"/>
+          <!-- Pescoço -->
+          <rect x="26" y="33" width="8" height="7" fill="#FDBCB4"/>
+          <!-- Rosto -->
+          <ellipse cx="30" cy="26" rx="13" ry="14" fill="#FDBCB4"/>
+          <!-- Cabelo castanho claro -->
+          <ellipse cx="30" cy="15" rx="13" ry="8" fill="#8B6914"/>
+          <rect x="17" y="15" width="4" height="8" rx="2" fill="#8B6914"/>
+          <rect x="39" y="15" width="4" height="8" rx="2" fill="#8B6914"/>
+          <!-- Olhos -->
+          <ellipse cx="24" cy="26" rx="3" ry="3.5" fill="white"/>
+          <ellipse cx="36" cy="26" rx="3" ry="3.5" fill="white"/>
+          <circle cx="24" cy="27" r="2" fill="#5D4037"/>
+          <circle cx="36" cy="27" r="2" fill="#5D4037"/>
+          <circle cx="24.7" cy="26.3" r=".6" fill="white"/>
+          <circle cx="36.7" cy="26.3" r=".6" fill="white"/>
+          <!-- Sobrancelha -->
+          <path d="M21 22 Q24 20 27 22" fill="none" stroke="#6b4c11" stroke-width="1.2"/>
+          <path d="M33 22 Q36 20 39 22" fill="none" stroke="#6b4c11" stroke-width="1.2"/>
+          <!-- Boca / sorriso -->
+          <path d="M26 33 Q30 37 34 33" fill="none" stroke="#c0696b" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Símbolo advogado -->
+          <text x="20" y="55" font-size="8" fill="#FFD700">⚖️</text>
+        </svg>
+      </div>
+      <div class="char-name">Dr. Luan</div>
+      <div class="char-role">Advogado Aguardando!</div>
+    </div>
+  </div>
+
+  <button class="btn-play" onclick="startGame()">▶ Começar Aventura!</button>
+  <p style="color:#7c6fab;font-size:.75rem;margin-top:2px">12 fases · 60s por pergunta · funciona offline</p>
+</div>
+
+<!-- ===== MAP ===== -->
+<div class="screen" id="screen-map">
+  <div class="map-title">🗺️ Mapa da Aventura</div>
+  <div class="hud">
+    <div class="hud-item">⭐ XP: <span class="val" id="hud-xp">0</span></div>
+    <div class="hud-item">💎 Pts: <span class="val" id="hud-pts">0</span></div>
+    <div class="hud-item">🔥 <span class="val" id="hud-fase">0</span>/12</div>
+  </div>
+  <div class="xp-bar-container"><div class="xp-bar" id="xp-bar" style="width:0%"></div></div>
+  <div class="map-path" id="map-path"></div>
+  <p style="color:#7c6fab;font-size:.73rem;text-align:center;margin-top:4px">Dr. Luan te espera no final! 💙⚖️</p>
+</div>
+
+<!-- ===== GAME ===== -->
+<div class="screen" id="screen-game">
+  <div class="game-header">
+    <div class="game-level-tag" id="game-level-tag">Fase 1</div>
+    <div class="stars-display">
+      <span class="star" id="s1">⭐</span>
+      <span class="star" id="s2">⭐</span>
+      <span class="star" id="s3">⭐</span>
+    </div>
+    <div class="game-score">💎 <span id="game-pts">0</span></div>
+    <div class="game-timer" id="game-timer">⏱ 60s</div>
+  </div>
+  <div class="timer-bar-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+  <div class="scene-box">
+    <div class="scene-illustration" id="scene-emoji">📊</div>
+    <p class="question-text" id="question-text">Carregando...</p>
+  </div>
+  <div class="answers-grid" id="answers-grid"></div>
+  <div class="jessica-bubble dica" id="jessica-bubble">
+    <div class="jessica-avatar-small" id="jessica-avatar-small">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="60" height="60" fill="#00796B"/>
+        <rect x="18" y="38" width="24" height="22" rx="4" fill="#00D4AA"/>
+        <rect x="26" y="33" width="8" height="7" fill="#8D5524"/>
+        <ellipse cx="30" cy="26" rx="13" ry="14" fill="#8D5524"/>
+        <ellipse cx="30" cy="14" rx="15" ry="10" fill="#1a1a1a"/>
+        <ellipse cx="17" cy="22" rx="5" ry="8" fill="#1a1a1a"/>
+        <ellipse cx="43" cy="22" rx="5" ry="8" fill="#1a1a1a"/>
+        <ellipse cx="22" cy="13" rx="5" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="38" cy="13" rx="5" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="30" cy="11" rx="6" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="24" cy="26" rx="3" ry="3.5" fill="white"/>
+        <ellipse cx="36" cy="26" rx="3" ry="3.5" fill="white"/>
+        <circle cx="24" cy="27" r="2" fill="#1a1a1a"/>
+        <circle cx="36" cy="27" r="2" fill="#1a1a1a"/>
+        <path d="M26 33 Q30 37 34 33" fill="none" stroke="#6b2d2d" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="jessica-text">
+      <h4 id="jessica-title">Jéssica diz:</h4>
+      <p id="jessica-text-p">Dica aqui!</p>
+    </div>
+  </div>
+  <div class="game-actions">
+    <button class="btn-hint" onclick="showJessicaHint()">💡 Dica da Jéssica</button>
+    <button class="btn-map" onclick="goToMap()">🗺️ Mapa</button>
+  </div>
+</div>
+
+<!-- ===== FEEDBACK PÓS-FASE ===== -->
+<div class="screen" id="screen-feedback">
+  <div class="feedback-header">
+    <h2 id="fb-title">📊 Resultado da Fase</h2>
+    <p id="fb-subtitle">Veja como você foi!</p>
+  </div>
+
+  <div class="stat-box">
+    <h3>📈 Suas Estatísticas</h3>
+    <div class="stat-row"><span class="stat-label">Acertos</span><span class="stat-val" id="fb-acertos">0/0</span></div>
+    <div class="stat-bar-wrap"><div class="stat-bar good" id="fb-bar-acertos" style="width:0%"></div></div>
+    <br>
+    <div class="stat-row"><span class="stat-label">Aproveitamento</span><span class="stat-val" id="fb-pct">0%</span></div>
+    <div class="stat-bar-wrap"><div class="stat-bar mid" id="fb-bar-pct" style="width:0%"></div></div>
+    <br>
+    <div class="stat-row"><span class="stat-label">Pontos ganhos</span><span class="stat-val" id="fb-pts-ganhos">0</span></div>
+    <div class="stat-row"><span class="stat-label">Tempo médio/pergunta</span><span class="stat-val" id="fb-tempo">0s</span></div>
+  </div>
+
+  <div class="errors-box" id="errors-box" style="display:none">
+    <h3>❌ O que você precisa revisar</h3>
+    <div id="errors-list"></div>
+  </div>
+
+  <div class="jessica-bubble dica" id="jessica-feedback-bubble" style="display:flex;gap:10px;align-items:flex-start;">
+    <div class="jessica-avatar-small">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="60" height="60" fill="#00796B"/>
+        <rect x="18" y="38" width="24" height="22" rx="4" fill="#00D4AA"/>
+        <rect x="26" y="33" width="8" height="7" fill="#8D5524"/>
+        <ellipse cx="30" cy="26" rx="13" ry="14" fill="#8D5524"/>
+        <ellipse cx="30" cy="14" rx="15" ry="10" fill="#1a1a1a"/>
+        <ellipse cx="17" cy="22" rx="5" ry="8" fill="#1a1a1a"/>
+        <ellipse cx="43" cy="22" rx="5" ry="8" fill="#1a1a1a"/>
+        <ellipse cx="22" cy="13" rx="5" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="38" cy="13" rx="5" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="30" cy="11" rx="6" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="24" cy="26" rx="3" ry="3.5" fill="white"/>
+        <ellipse cx="36" cy="26" rx="3" ry="3.5" fill="white"/>
+        <circle cx="24" cy="27" r="2" fill="#1a1a1a"/>
+        <circle cx="36" cy="27" r="2" fill="#1a1a1a"/>
+        <path d="M26 33 Q30 37 34 33" fill="none" stroke="#6b2d2d" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="jessica-text">
+      <h4 id="jessica-feedback-title">Jéssica avalia:</h4>
+      <p id="jessica-feedback-text"></p>
+    </div>
+  </div>
+
+  <div class="letter-card" id="letter-card">
+    <div class="letter-from">💌 Carta do Dr. Luan</div>
+    <p id="letter-text"></p>
+    <div class="letter-sig">— Dr. Luan ⚖️💙</div>
+  </div>
+
+  <button class="btn-next-phase" id="btn-next-phase">Próxima Fase! 🚀</button>
+</div>
+
+<!-- ===== FINAL ===== -->
+<div class="screen" id="screen-final">
+  <div class="final-hearts">💙💙💙</div>
+  <div class="final-title">Você salvou o Dr. Luan!</div>
+  <p style="color:#c4b5fd;font-size:.95rem;max-width:340px;line-height:1.5">Rafaela, você é incrível! Dominou 12 fases de contabilidade e a nova Reforma Tributária! ⚖️💼</p>
+  <div class="final-score-box">🏆 <span id="final-score">0</span> pontos</div>
+  <div class="final-luan-letter" id="final-letter"></div>
+  <div class="final-actions">
+    <button class="btn-play" onclick="restartGame()">🔄 Jogar de Novo</button>
+    <button onclick="showMapScreen()" style="background:rgba(124,58,237,.4);border:2px solid var(--purple);color:white;padding:13px 20px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:.95rem;cursor:pointer;">🗺️ Mapa</button>
+  </div>
+</div>
+
+<script>
+// =============================================
+// DADOS DAS 12 FASES
+// =============================================
+const LEVELS = [
+  // ---- FASE 1 ----
+  {
+    id:1, icon:'📖', title:'Fundamentos da Contabilidade',
+    description:'Conceitos básicos, partidas dobradas e equação patrimonial',
+    questions:[
+      { emoji:'💰', text:'A empresa vendeu R$15.000 em mercadorias à vista. O que acontece com a conta CAIXA?',
+        answers:['Débito — aumenta o saldo','Crédito — diminui o saldo','Nenhum lançamento é feito','É registrada no passivo'],
+        correct:0, explanation:'Quando entra dinheiro no caixa, DEBITAMOS a conta Caixa. Na teoria das partidas dobradas, Débito = esquerda = aumento em contas de ativo.' },
+      { emoji:'⚖️', text:'A equação fundamental da contabilidade é:',
+        answers:['Ativo = Passivo + Patrimônio Líquido','Receita − Despesa = Lucro','Caixa = Banco + Aplicações','Débito + Crédito = Zero'],
+        correct:0, explanation:'ATIVO = PASSIVO + PL. Essa equação nunca pode ser quebrada! Tudo que a empresa possui (ativo) é financiado por terceiros (passivo) ou pelos sócios (PL).' },
+      { emoji:'🏛️', text:'O Balanço Patrimonial é:',
+        answers:['Uma fotografia da situação financeira da empresa em determinada data','O relatório de receitas e despesas do período','O controle de entradas e saídas de dinheiro','Uma declaração enviada à Receita Federal'],
+        correct:0, explanation:'O BP é uma "foto" estática da empresa em determinada data, mostrando tudo que possui (ativo), tudo que deve (passivo) e o capital dos sócios (PL).' },
+      { emoji:'📋', text:'O regime de Competência determina que:',
+        answers:['Receitas e despesas se registram quando ocorrem, independente do pagamento','Só se registra quando há entrada/saída de dinheiro','O imposto se paga apenas no lucro','Toda venda deve ser à vista'],
+        correct:0, explanation:'Pelo regime de Competência, um serviço prestado em dezembro deve ser registrado em dezembro, mesmo que o cliente pague em fevereiro.' },
+      { emoji:'🔢', text:'Na teoria das partidas dobradas, todo lançamento contábil:',
+        answers:['Tem um débito e um crédito de mesmo valor','Pode ter só débito ou só crédito','É registrado apenas no ativo','Só ocorre no final do mês'],
+        correct:0, explanation:'Partidas dobradas = para cada débito, existe um crédito de mesmo valor. Isso garante que a equação Ativo = Passivo + PL nunca seja desequilibrada!' },
+      { emoji:'📊', text:'O Patrimônio Líquido (PL) representa:',
+        answers:['A riqueza pertencente aos sócios/acionistas','Todas as dívidas da empresa','O total de dinheiro em caixa','Os bens imóveis da empresa'],
+        correct:0, explanation:'O PL é o "dinheiro dos donos". É o que sobra quando você subtrai todas as dívidas (passivo) dos bens da empresa (ativo). PL = Ativo − Passivo.' },
+    ],
+    hint:'Lembre: D de Débito = esquerda = aumenta Ativo. C de Crédito = direita = aumenta Passivo/PL. A equação A = P + PL nunca quebra!',
+    letter:'Minha querida Rafaela! Você dominou os fundamentos que são a base de toda a contabilidade! Estou tão orgulhoso. Como advogado, lido com balanços em processos e sei que essa base é ouro. Você nasceu para isso! 💙'
+  },
+
+  // ---- FASE 2 ----
+  {
+    id:2, icon:'💹', title:'Ativo, Passivo e PL',
+    description:'Classificação de contas e estrutura patrimonial',
+    questions:[
+      { emoji:'🏢', text:'Qual conta pertence ao ATIVO CIRCULANTE?',
+        answers:['Contas a Receber (clientes a pagar em 30 dias)','Máquinas e Equipamentos','Empréstimo de longo prazo','Capital Social'],
+        correct:0, explanation:'Ativo Circulante = bens e direitos realizáveis em até 12 meses. Contas a receber de curto prazo se encaixam aqui. Máquinas são Ativo Não Circulante.' },
+      { emoji:'🏗️', text:'Terrenos e imóveis da empresa ficam em qual grupo do balanço?',
+        answers:['Ativo Não Circulante — Imobilizado','Ativo Circulante','Passivo Circulante','Patrimônio Líquido'],
+        correct:0, explanation:'Bens físicos de uso duradouro (imóveis, máquinas, veículos) ficam no Ativo Não Circulante, subgrupo Imobilizado.' },
+      { emoji:'💳', text:'Uma dívida bancária com vencimento em 24 meses fica em:',
+        answers:['Passivo Não Circulante','Passivo Circulante','Ativo Circulante','Patrimônio Líquido'],
+        correct:0, explanation:'Passivo Circulante = dívidas a pagar em até 12 meses. Passivo Não Circulante = dívidas com prazo acima de 12 meses. 24 meses → Não Circulante!' },
+      { emoji:'💡', text:'A depreciação de um equipamento é registrada como:',
+        answers:['Despesa no resultado e redução no ativo','Receita no resultado','Aumento no passivo','Aumento no PL'],
+        correct:0, explanation:'A depreciação reconhece o desgaste do ativo ao longo do tempo. Ela reduz o valor contábil do bem (ativo) e é registrada como despesa na DRE.' },
+      { emoji:'📌', text:'O Capital Social de uma empresa fica em:',
+        answers:['Patrimônio Líquido','Passivo Circulante','Ativo Imobilizado','Resultado do Exercício'],
+        correct:0, explanation:'Capital Social é o valor investido pelos sócios/acionistas na empresa. Fica no Patrimônio Líquido, junto com Reservas e Lucros Acumulados.' },
+      { emoji:'🔄', text:'Intangível (patentes, marcas, softwares) fica em qual conta do balanço?',
+        answers:['Ativo Não Circulante — Intangível','Ativo Circulante','Passivo Circulante','Despesas Antecipadas'],
+        correct:0, explanation:'A conta Intangível faz parte do Ativo Não Circulante. Inclui marcas, patentes, licenças de software e o famoso "goodwill" (valor de ágio por rentabilidade futura).' },
+    ],
+    hint:'Circulante = curto prazo (até 12 meses). Não Circulante = longo prazo (acima de 12 meses). Isso vale tanto para Ativo quanto para Passivo!',
+    letter:'Rafaela! Você classificou ativos e passivos como uma profissional! Aqui dentro fico imaginando você com seu caderninho de anotações. Você é a pessoa mais dedicada que conheço. Siga em frente! 💙'
+  },
+
+  // ---- FASE 3 ----
+  {
+    id:3, icon:'📑', title:'DRE — Demonstração do Resultado',
+    description:'Receitas, custos, despesas e como calcular o lucro',
+    questions:[
+      { emoji:'📉', text:'A DRE (Demonstração do Resultado do Exercício) mostra:',
+        answers:['O lucro ou prejuízo da empresa em determinado período','A situação patrimonial em uma data','O fluxo de entrada e saída de caixa','As obrigações tributárias do período'],
+        correct:0, explanation:'A DRE é um relatório dinâmico que mostra as receitas, custos e despesas de um período (mês, trimestre, ano) e apura o resultado final: lucro ou prejuízo.' },
+      { emoji:'🧮', text:'Receita Bruta R$200k, deduções R$30k, CPV R$80k. Qual o Lucro Bruto?',
+        answers:['R$ 90.000','R$ 120.000','R$ 170.000','R$ 200.000'],
+        correct:0, explanation:'Receita Líquida = R$200k − R$30k = R$170k. Lucro Bruto = Receita Líquida − CPV = R$170k − R$80k = R$90k.' },
+      { emoji:'💼', text:'O EBITDA é:',
+        answers:['Lucro antes de juros, impostos, depreciação e amortização','Lucro depois de todos os impostos','Total das receitas do período','Resultado financeiro líquido'],
+        correct:0, explanation:'EBITDA = Earnings Before Interest, Taxes, Depreciation and Amortization. Em PT: LAJIDA. Mede a geração operacional de caixa, ignorando efeitos financeiros e contábeis.' },
+      { emoji:'📐', text:'CPV significa:',
+        answers:['Custo dos Produtos Vendidos','Contribuição Previdenciária Variável','Crédito de PIS a Verificar','Conta de Pagamento a Vencer'],
+        correct:0, explanation:'CPV = Custo dos Produtos Vendidos. É o custo direto das mercadorias vendidas no período. Para serviços, o equivalente é o CSP (Custo dos Serviços Prestados).' },
+      { emoji:'📊', text:'Qual é a ordem correta na DRE?',
+        answers:['Receita Bruta → Receita Líquida → Lucro Bruto → EBIT → Lucro Líquido','Lucro → Receita → Despesa','Ativo → Passivo → PL','Caixa → Banco → Investimentos'],
+        correct:0, explanation:'A cascata da DRE: Receita Bruta (−) Deduções = Rec. Líquida (−) CPV = L.Bruto (−) Desp.Operacionais = EBIT (±) Resultado Financeiro (−) IR/CSLL = Lucro Líquido.' },
+      { emoji:'⚠️', text:'Uma empresa com lucro no DRE pode ter caixa negativo. Por quê?',
+        answers:['Porque vende muito a prazo e o dinheiro ainda não entrou no caixa','Isso é impossível — lucro e caixa são sempre iguais','Porque o contador errou os lançamentos','Porque a depreciação aumenta o caixa'],
+        correct:0, explanation:'É o famoso "lucro na competência, falta de caixa na prática". Vende muito a prazo → registra receita → mas o dinheiro não entrou. Risco real de gestão!' },
+    ],
+    hint:'Cascata DRE: Receita Bruta − Deduções = Líquida − CPV = Bruto − Operacionais = EBIT ± Financeiro − IR = Lucro Líquido. Decore essa cascata!',
+    letter:'Você entendeu a DRE! Sabe, Rafaela, aqui estou estudando direito tributário para que quando eu sair possamos trabalhar juntos em casos fiscais. Somos uma dupla imbatível! 💙📋'
+  },
+
+  // ---- FASE 4 ----
+  {
+    id:4, icon:'💸', title:'Fluxo de Caixa',
+    description:'DFC, gestão de liquidez e ciclo financeiro',
+    questions:[
+      { emoji:'💧', text:'O Fluxo de Caixa é dividido em quantas atividades?',
+        answers:['3 — Operacional, Investimento e Financiamento','2 — Entrada e Saída','4 — Caixa, Banco, Crédito e Débito','5 — conforme o regime tributário'],
+        correct:0, explanation:'O DFC tem exatamente 3 grupos: Operacional (atividade-fim), Investimento (compra/venda de ativos permanentes) e Financiamento (dívidas, dividendos, aumento de capital).' },
+      { emoji:'🔄', text:'O recebimento de um empréstimo bancário vai para qual atividade do DFC?',
+        answers:['Atividade de Financiamento','Atividade Operacional','Atividade de Investimento','Não entra no DFC'],
+        correct:0, explanation:'Empréstimos captados = Financiamento (entrada). Pagamento de parcelas de empréstimos = também Financiamento (saída). Investimento é para compra/venda de ativos fixos.' },
+      { emoji:'📈', text:'O Ciclo Financeiro de uma empresa é:',
+        answers:['O tempo entre o pagamento de fornecedores e o recebimento de clientes','O período do exercício fiscal','O prazo de pagamento de impostos','O tempo de vida útil de um equipamento'],
+        correct:0, explanation:'Ciclo Financeiro = PMR (prazo médio recebimento) − PMP (prazo médio pagamento). Quanto menor o ciclo, melhor para o caixa. Ciclo negativo = empresa recebe antes de pagar!' },
+      { emoji:'💡', text:'Capital de Giro é:',
+        answers:['Os recursos necessários para manter as operações do dia a dia','O patrimônio dos sócios','O total de empréstimos da empresa','O valor investido em maquinário'],
+        correct:0, explanation:'Capital de Giro = recursos para financiar as operações correntes: estoque, contas a receber, etc. Fórmula básica: CG = Ativo Circulante − Passivo Circulante.' },
+      { emoji:'🏦', text:'EBITDA é diferente de Fluxo de Caixa porque:',
+        answers:['EBITDA não considera variações de capital de giro e investimentos','São exatamente a mesma coisa','EBITDA inclui pagamento de impostos','Fluxo de Caixa só considera vendas à vista'],
+        correct:0, explanation:'EBITDA é um indicador de rentabilidade operacional, não de caixa. Não reflete variações de capital de giro, pagamentos de dívidas ou capex. Caixa é mais real!' },
+      { emoji:'📊', text:'Uma empresa saudável financeiramente deve ter:',
+        answers:['Fluxo de caixa operacional positivo e crescente','Somente lucro contábil elevado','Máximo de dívidas para crescer rápido','Estoque muito alto para nunca faltar produto'],
+        correct:0, explanation:'O principal sinal de saúde financeira é o fluxo de caixa operacional positivo (a operação gera dinheiro). Lucro contábil pode existir sem caixa saudável!' },
+    ],
+    hint:'FCO positivo = empresa gera caixa. FCI negativo = empresa está investindo (pode ser bom!). FCF pode ser negativo por captação de dívidas ou pagamento de dividendos.',
+    letter:'Querida Rafaela! Você entendeu fluxo de caixa melhor que muitos gestores! Aqui eu fico feliz pensando que em breve serei salvo por você. Você é maravilhosa e eu não tenho palavras! 💙'
+  },
+
+  // ---- FASE 5 ----
+  {
+    id:5, icon:'🏢', title:'Regimes Tributários',
+    description:'Simples Nacional, Lucro Presumido e Lucro Real',
+    questions:[
+      { emoji:'🛒', text:'Qual o limite de faturamento anual para o MEI?',
+        answers:['R$ 81.000','R$ 360.000','R$ 4,8 milhões','R$ 1,2 milhão'],
+        correct:0, explanation:'MEI tem teto de R$ 81.000/ano (R$ 6.750/mês). Acima disso, deve migrar para ME (Microempresa) e se enquadrar no Simples Nacional ou outro regime.' },
+      { emoji:'📈', text:'Qual o teto de faturamento anual para o Simples Nacional?',
+        answers:['R$ 4,8 milhões','R$ 81.000','R$ 10 milhões','R$ 1,2 milhão'],
+        correct:0, explanation:'O Simples Nacional aceita empresas com faturamento de até R$ 4,8 milhões/ano. Acima disso, a empresa deve migrar para Lucro Presumido ou Lucro Real.' },
+      { emoji:'💼', text:'No Lucro Presumido, o IR é calculado sobre:',
+        answers:['Uma margem de lucro presumida pela Receita Federal sobre a receita bruta','O lucro real apurado pela contabilidade','O faturamento total multiplicado por 15%','Apenas sobre o pró-labore dos sócios'],
+        correct:0, explanation:'No Lucro Presumido, a RF presume uma margem de lucro por atividade (ex: 8% para comércio, 32% para serviços) e cobra IR sobre esse valor presumido, sem precisar apurar o lucro real.' },
+      { emoji:'🔍', text:'O Lucro Real é obrigatório para empresas com faturamento acima de:',
+        answers:['R$ 78 milhões/ano','R$ 4,8 milhões/ano','R$ 10 milhões/ano','R$ 1 bilhão/ano'],
+        correct:0, explanation:'Lucro Real é obrigatório para receitas acima de R$ 78 milhões/ano, e também para bancos, seguradoras e algumas atividades específicas. Abaixo disso, pode ser opcional.' },
+      { emoji:'🔢', text:'A guia DAS no Simples Nacional reúne:',
+        answers:['IRPJ, CSLL, PIS, COFINS, IPI, CPP, ICMS e ISS em uma só guia','Apenas IR e INSS','Só os impostos federais','IPTU e IPVA da empresa'],
+        correct:0, explanation:'A grande vantagem do Simples: tudo em uma guia! DAS = Documento de Arrecadação do Simples Nacional. 8 tributos diferentes pagos juntos.' },
+      { emoji:'📊', text:'Uma empresa de serviços com faturamento de R$ 600.000/ano. Qual regime pode usar?',
+        answers:['Simples Nacional ou Lucro Presumido','Apenas Lucro Real','Apenas MEI','Lucro Real obrigatório'],
+        correct:0, explanation:'R$ 600.000/ano está dentro do teto do Simples (R$ 4,8 mi). A empresa pode optar pelo Simples Nacional ou pelo Lucro Presumido. O Lucro Real também é possível, mas mais complexo.' },
+    ],
+    hint:'MEI ≤ R$81k → ME/EPP no Simples ≤ R$4,8mi → Lucro Presumido (opcional) → Lucro Real (obrigatório acima de R$78mi). Quanto maior, mais complexo!',
+    letter:'Rafaela! Os regimes tributários são o coração do planejamento fiscal e você os dominou! Sei que você vai ajudar muito empresário a pagar menos imposto dentro da lei. Você é extraordinária! 💙'
+  },
+
+  // ---- FASE 6 ----
+  {
+    id:6, icon:'🏛️', title:'Reforma Tributária — Parte 1',
+    description:'Entenda o IVA Dual: CBS e IBS',
+    questions:[
+      { emoji:'🇧🇷', text:'A Reforma Tributária (EC 132/2023) cria o chamado "IVA Dual". O que é isso?',
+        answers:['Dois novos impostos: CBS (federal) e IBS (estados/municípios)','Duas alíquotas de ICMS','Dois pagamentos mensais de IR','Dois documentos fiscais obrigatórios'],
+        correct:0, explanation:'IVA Dual = CBS + IBS. A CBS substitui PIS e COFINS (federais). O IBS substitui ICMS e ISS (estadual e municipal). Simplificação de 5 tributos em 2!' },
+      { emoji:'🔄', text:'A CBS (Contribuição sobre Bens e Serviços) substitui quais tributos?',
+        answers:['PIS e COFINS','ICMS e ISS','IR e CSLL','INSS e FGTS'],
+        correct:0, explanation:'A CBS é o tributo federal do IVA Dual. Substitui PIS (Programa de Integração Social) e COFINS (Contribuição para Financiamento da Seguridade Social).' },
+      { emoji:'🏙️', text:'O IBS (Imposto sobre Bens e Serviços) substitui quais tributos?',
+        answers:['ICMS (estadual) e ISS (municipal)','PIS e COFINS','IR e CSLL','IPI e IOF'],
+        correct:0, explanation:'O IBS é gerido pelos estados e municípios e substitui o ICMS (estadual) e o ISS (municipal). Com o IBS, não haverá mais guerra fiscal entre estados!' },
+      { emoji:'⚖️', text:'O princípio do destino na Reforma Tributária significa:',
+        answers:['O imposto vai para o estado/município onde o consumo acontece, não onde é produzido','Que o imposto é pago no destino final da mercadoria','Que cada estado define sua própria alíquota','Que só incide em exportações'],
+        correct:0, explanation:'Hoje o ICMS incide na origem (onde a empresa está). Com a reforma, o IBS incidirá no destino (onde o consumidor está). Isso acaba com a guerra fiscal entre estados!' },
+      { emoji:'💰', text:'A alíquota padrão do IVA brasileiro (CBS+IBS) deverá ser aproximadamente:',
+        answers:['26,5% (uma das maiores do mundo)','5%','12%','18%'],
+        correct:0, explanation:'A alíquota consolidada do IVA brasileiro será cerca de 26,5%, uma das mais altas do mundo. Porém, com melhor distribuição e fim da cumulatividade, a carga efetiva pode cair.' },
+      { emoji:'🛡️', text:'O que é a "cesta básica de alíquota zero" na Reforma?',
+        answers:['Produtos alimentares essenciais terão CBS e IBS zerados','Um benefício apenas para MEI','Uma isenção de IR para pessoas de baixa renda','Um desconto no FGTS'],
+        correct:0, explanation:'Para reduzir o impacto nos mais pobres, a reforma prevê alíquota zero para uma cesta básica de alimentos essenciais como arroz, feijão, carnes, leite, etc.' },
+    ],
+    hint:'CBS = federal (PIS + COFINS). IBS = estadual/municipal (ICMS + ISS). Princípio do destino = imposto fica onde o consumidor está. Cesta básica = alíquota zero!',
+    letter:'Rafaela! Você entendeu o coração da Reforma Tributária! Eu estudo o lado jurídico dessa reforma e você o lado contábil — juntos seríamos invencíveis! Me salva logo! 💙⚖️'
+  },
+
+  // ---- FASE 7 ----
+  {
+    id:7, icon:'⚡', title:'Reforma Tributária — Parte 2',
+    description:'Imposto Seletivo, transição e impactos práticos',
+    questions:[
+      { emoji:'🚬', text:'O Imposto Seletivo (IS) vai incidir sobre:',
+        answers:['Bens e serviços prejudiciais à saúde e ao meio ambiente','Todas as empresas do Simples Nacional','Exportações brasileiras','Apenas serviços financeiros'],
+        correct:0, explanation:'O IS é extrafiscal: visa desestimular o consumo de produtos nocivos. Incidirá sobre cigarros, bebidas alcoólicas, veículos poluentes, armas, etc.' },
+      { emoji:'📅', text:'O período de transição da Reforma Tributária vai de:',
+        answers:['2026 a 2033 (7 anos)','2025 a 2027 (2 anos)','2024 a 2030 (6 anos)','2030 a 2040 (10 anos)'],
+        correct:0, explanation:'A transição é gradual: de 2026 a 2033. Em 2026 começa com alíquotas pequenas de CBS e IBS, que crescem progressivamente até 2033, quando PIS, COFINS, ICMS e ISS serão extintos.' },
+      { emoji:'🔢', text:'Em 2026, qual será a alíquota de teste do IBS e CBS?',
+        answers:['Alíquota reduzida de teste (0,1% IBS e 0,9% CBS)','Alíquota cheia de 26,5%','Não haverá cobrança em 2026','Cada estado define sua própria alíquota'],
+        correct:0, explanation:'Em 2026, haverá um período de teste com alíquotas mínimas: 0,1% para o IBS e 0,9% para a CBS. O objetivo é testar o sistema sem impacto financeiro relevante.' },
+      { emoji:'🏭', text:'O Split Payment na Reforma Tributária significa:',
+        answers:['O imposto é recolhido automaticamente na transação, sem passar pelo vendedor','Divisão do imposto entre estados','Parcelamento de débitos tributários','Pagamento em duas parcelas mensais'],
+        correct:0, explanation:'Split Payment = pagamento dividido. Na compra, o sistema bancário retém automaticamente o imposto e repassa ao governo, sem que o vendedor precise recolher. Reduz sonegação!' },
+      { emoji:'💼', text:'O Comitê Gestor do IBS será responsável por:',
+        answers:['Gerir o IBS em nome de todos os estados e municípios','Fiscalizar as empresas do Simples Nacional','Definir as alíquotas do Imposto de Renda','Administrar o Fundo de Garantia'],
+        correct:0, explanation:'O Comitê Gestor do IBS será um órgão colegiado com representantes de todos os estados e municípios, que administrará o IBS de forma centralizada.' },
+      { emoji:'📊', text:'Qual setor tem MAIS preocupação com o impacto da Reforma Tributária?',
+        answers:['Serviços (hoje tributados mais levemente pelo ISS)','Agronegócio (sempre teve incentivos)','Comércio exterior (exportações são isentas)','Setor público (não paga tributos)'],
+        correct:0, explanation:'O setor de serviços hoje paga ISS de 2% a 5%. Com o IBS + CBS, a carga pode subir para 26,5%, um aumento enorme. Por isso os prestadores de serviços são os mais preocupados.' },
+    ],
+    hint:'Transição 2026-2033. IS = produtos nocivos. Split Payment = imposto retido na hora da venda. Setor de serviços = mais impactado (ISS 5% → IBS+CBS ~26%)!',
+    letter:'UAAAU! Você dominou a parte 2 da Reforma! Rafaela, você é incrível! Sabe, já estou preparando minha defesa para o julgamento e você é a minha maior motivação. Não me deixa esperando muito! 💙🔥'
+  },
+
+  // ---- FASE 8 ----
+  {
+    id:8, icon:'🧾', title:'Nota Fiscal e Obrigações Acessórias',
+    description:'NF-e, NFS-e, CT-e e obrigações de entrega',
+    questions:[
+      { emoji:'📄', text:'A NF-e (Nota Fiscal Eletrônica) de mercadorias é autorizada pela:',
+        answers:['SEFAZ — Secretaria de Fazenda do Estado','Receita Federal Federal','Prefeitura Municipal','Banco Central do Brasil'],
+        correct:0, explanation:'A NF-e de mercadorias (operações com ICMS) é autorizada pela SEFAZ estadual. A autorização gera uma chave de acesso de 44 dígitos que valida o documento.' },
+      { emoji:'🏘️', text:'A NFS-e (Nota Fiscal de Serviços Eletrônica) é emitida e autorizada pela:',
+        answers:['Prefeitura Municipal','SEFAZ Estadual','Receita Federal','IBGE'],
+        correct:0, explanation:'Serviços = ISS = competência municipal. Por isso, a NFS-e é emitida e autorizada pela prefeitura do município onde a empresa está sediada.' },
+      { emoji:'🚛', text:'O CT-e (Conhecimento de Transporte Eletrônico) é usado para:',
+        answers:['Documentar o transporte de cargas','Registrar operações bancárias','Compras de mercadorias no exterior','Pagamento de funcionários'],
+        correct:0, explanation:'O CT-e é obrigatório para transportadoras. Documenta o transporte de cargas entre estados e municípios, substituindo o antigo Conhecimento de Transporte impresso.' },
+      { emoji:'❌', text:'A Nota Fiscal pode ser cancelada em até:',
+        answers:['24 horas após a autorização (em muitos estados)','7 dias','30 dias','Não pode ser cancelada nunca'],
+        correct:0, explanation:'O prazo de cancelamento de NF-e varia por estado, mas a regra geral federal permite cancelamento em até 24 horas após a autorização, desde que não haja movimentação de carga.' },
+      { emoji:'🔑', text:'A chave de acesso da NF-e tem quantos dígitos?',
+        answers:['44 dígitos','20 dígitos','11 dígitos (como o CPF)','18 dígitos'],
+        correct:0, explanation:'A chave de acesso da NF-e tem 44 dígitos e contém: código do estado, data de emissão, CNPJ do emitente, modelo, série, número e código numérico.' },
+      { emoji:'📱', text:'O que é o DANFE?',
+        answers:['Documento auxiliar da NF-e, usado para acompanhar a mercadoria','Um tipo de imposto sobre serviços','O cadastro da empresa na Receita Federal','Uma declaração mensal de faturamento'],
+        correct:0, explanation:'DANFE = Documento Auxiliar da Nota Fiscal Eletrônica. É a representação impressa (ou em PDF) da NF-e que acompanha a mercadoria durante o transporte.' },
+    ],
+    hint:'NF-e (mercadorias) = SEFAZ. NFS-e (serviços) = Prefeitura. CT-e = transporte. Chave NF-e = 44 dígitos. Cancelamento = geralmente 24h. DANFE = representação impressa!',
+    letter:'Rafaela! Você conhece obrigações acessórias melhor que muitos contadores experientes! Aqui estou aguardando com muita fé. Cada carta que te mando é um pedaço do meu coração. 💙📋'
+  },
+
+  // ---- FASE 9 ----
+  {
+    id:9, icon:'🖥️', title:'SPED e Escrituração Digital',
+    description:'ECD, ECF, EFD e o ambiente digital do fisco',
+    questions:[
+      { emoji:'💻', text:'O SPED (Sistema Público de Escrituração Digital) foi criado em:',
+        answers:['2007, pelo Decreto 6.022','2015, pela Reforma Trabalhista','2023, pela Reforma Tributária','2001, pela Lei de Responsabilidade Fiscal'],
+        correct:0, explanation:'O SPED foi criado em 2007 pelo Decreto 6.022. Revolucionou a fiscalização ao obrigar empresas a enviarem dados contábeis e fiscais de forma digital e estruturada.' },
+      { emoji:'📚', text:'A ECD (Escrituração Contábil Digital) substitui:',
+        answers:['Os livros Diário e Razão em papel','A Declaração do Imposto de Renda','O livro Caixa','O balanço patrimonial enviado ao banco'],
+        correct:0, explanation:'A ECD é a versão digital dos livros Diário, Razão e livros auxiliares. Obrigatória para empresas tributadas pelo Lucro Real e opcionalmente para Presumido.' },
+      { emoji:'📊', text:'O prazo de entrega da ECF (Escrituração Contábil Fiscal) é:',
+        answers:['Até o último dia útil de julho do ano seguinte','Janeiro de cada ano','Março do mesmo exercício','Qualquer mês do ano'],
+        correct:0, explanation:'ECF deve ser entregue até o último dia útil de julho do ano seguinte. Exemplo: ECF do exercício 2024 → entrega até último dia útil de julho/2025.' },
+      { emoji:'🧾', text:'A EFD-REINF é utilizada para informar:',
+        answers:['Retenções de IR, CSLL, PIS, COFINS e contribuições previdenciárias de serviços contratados','Exportações de mercadorias','Notas fiscais de compra de equipamentos','Salários dos funcionários'],
+        correct:0, explanation:'A EFD-REINF informa ao governo as retenções de tributos feitas pela empresa ao contratar serviços de terceiros. Substitui parte das informações que iam na DIRF.' },
+      { emoji:'📅', text:'Qual obrigação mensal informa o movimento de notas fiscais e apura ICMS/IPI?',
+        answers:['EFD-ICMS/IPI (SPED Fiscal)','ECF','ECD','DIRF'],
+        correct:0, explanation:'A EFD-ICMS/IPI, conhecida como SPED Fiscal, é enviada mensalmente e contém todas as entradas, saídas, estoques e apuração de ICMS e IPI da empresa.' },
+      { emoji:'⚠️', text:'Quanto tempo a empresa deve guardar documentos fiscais e contábeis?',
+        answers:['Mínimo 5 anos (prazo decadencial/prescricional)','1 ano','10 anos','3 meses após o encerramento do exercício'],
+        correct:0, explanation:'O prazo geral é de 5 anos (prazo decadencial para o fisco lançar tributos). Mas alguns documentos trabalhistas exigem guarda de até 30 anos. Na dúvida: guarda tudo por 5 anos!' },
+    ],
+    hint:'SPED = plataforma digital. ECD = livros contábeis digitais. ECF = IR da pessoa jurídica (entrega julho). EFD = escrituração fiscal. Guarda de documentos = 5 anos mínimo!',
+    letter:'Rafaela! Você entende de SPED mais do que eu entendo de processo civil! Isso é tudo! Tenho muito orgulho de você. Mais uma fase e você me salva! ACREDITE EM VOCÊ! 💙💻'
+  },
+
+  // ---- FASE 10 ----
+  {
+    id:10, icon:'👷', title:'Folha de Pagamento e Tributos Trabalhistas',
+    description:'INSS, FGTS, IR na fonte e obrigações trabalhistas',
+    questions:[
+      { emoji:'👩‍💼', text:'A alíquota do FGTS é:',
+        answers:['8% sobre a remuneração bruta do empregado','11% sobre o salário líquido','5% sobre o pró-labore','2% sobre o faturamento da empresa'],
+        correct:0, explanation:'FGTS = Fundo de Garantia do Tempo de Serviço. A empresa deposita mensalmente 8% da remuneração bruta de cada empregado em conta vinculada na Caixa Econômica Federal.' },
+      { emoji:'🏥', text:'A contribuição patronal ao INSS é geralmente de:',
+        answers:['20% sobre a folha de salários (empresas no Lucro Real/Presumido)','8% igual ao FGTS','5% apenas sobre o pró-labore','Não existe contribuição patronal'],
+        correct:0, explanation:'As empresas fora do Simples pagam 20% de INSS patronal sobre a folha. Mais RAT (Risco de Acidente de Trabalho, 1% a 3%) e contribuições de terceiros (~5,8%).' },
+      { emoji:'📋', text:'O eSocial é:',
+        answers:['Sistema digital que unifica informações trabalhistas, previdenciárias e fiscais do empregador','Um benefício do governo para trabalhadores de baixa renda','O cadastro do trabalhador no CAGED','O sistema de emissão de nota fiscal de serviços'],
+        correct:0, explanation:'O eSocial centraliza em uma única plataforma todas as obrigações trabalhistas, previdenciárias e fiscais. Substituiu GFIP, CAGED, RAIS, DIRF e outras declarações separadas.' },
+      { emoji:'💰', text:'O Décimo Terceiro Salário é provisionado mensalmente como:',
+        answers:['1/12 da remuneração mensal por mês trabalhado','13 vezes o salário no mês de dezembro','5% do faturamento mensal','Apenas quando o empregado pede'],
+        correct:0, explanation:'Competência: a empresa deve provisionar 1/12 do salário por mês. Em novembro paga a 1ª parcela (50%) e em dezembro a 2ª parcela (50%). É despesa ao longo do ano!' },
+      { emoji:'⚠️', text:'O prazo para recolher o FGTS é:',
+        answers:['Até o dia 20 do mês seguinte à competência','Todo dia 5 do mês','No último dia do mês da competência','A cada 3 meses'],
+        correct:0, explanation:'O FGTS deve ser recolhido até o dia 20 do mês seguinte à competência. Atraso gera multa de mora de 0,07% por dia mais juros de 0,5% ao mês.' },
+      { emoji:'📊', text:'Qual documento comprova os vínculos empregatícios e salários para a Previdência?',
+        answers:['CAGED e eSocial (antes a GFIP/SEFIP)','Apenas a Carteira de Trabalho','O contrato social da empresa','A NF-e de serviços'],
+        correct:0, explanation:'Antes era a GFIP/SEFIP. Com o eSocial, todas essas informações são centralizadas digitalmente. O CAGED informa admissões e demissões mensalmente ao Ministério do Trabalho.' },
+    ],
+    hint:'FGTS = 8% da remuneração, pago até dia 20. INSS patronal = 20% + RAT + terceiros. eSocial = centralizou tudo. 13º = provisione 1/12 por mês!',
+    letter:'Rafaela! Você passou pela fase mais complexa sobre folha de pagamento! Sei que no escritório do futuro você vai organizar tudo isso com maestria. Estou aqui, torcendo por você! 💙👷'
+  },
+
+  // ---- FASE 11 ----
+  {
+    id:11, icon:'🔍', title:'Auditoria e Compliance Fiscal',
+    description:'Planejamento tributário, compliance e responsabilidade do contador',
+    questions:[
+      { emoji:'🛡️', text:'Compliance Fiscal significa:',
+        answers:['Conjunto de práticas para garantir cumprimento de todas as obrigações tributárias','Somente pagar os impostos em dia','Software de emissão de notas fiscais','Auditoria interna anual obrigatória'],
+        correct:0, explanation:'Compliance Fiscal = conformidade total: pagar tributos, entregar declarações nos prazos, emitir documentos corretamente, guardar documentos, treinar equipe. Objetivo: zero autuações.' },
+      { emoji:'⚖️', text:'Planejamento Tributário Lícito (elisão fiscal) é:',
+        answers:['Usar brechas legais para reduzir a carga tributária dentro da lei','Omitir receitas para pagar menos imposto','Falsificar notas fiscais','Registrar funcionários como PJ para fugir de encargos'],
+        correct:0, explanation:'Elisão fiscal = redução de tributos usando meios LEGAIS (escolha do regime tributário, benefícios fiscais, incentivos legais). Diferente de evasão fiscal, que é crime!' },
+      { emoji:'🔎', text:'O que é uma Auditoria Independente?',
+        answers:['Exame das demonstrações contábeis por profissional externo e imparcial','Revisão interna feita pelo próprio contador da empresa','Fiscalização feita pela Receita Federal','Análise do fluxo de caixa pelo banco'],
+        correct:0, explanation:'Auditoria Independente é realizada por auditor externo (não vinculado à empresa) que emite um parecer sobre a fidedignidade das demonstrações contábeis. Obrigatória para S.A. de capital aberto.' },
+      { emoji:'📋', text:'O CRC (Conselho Regional de Contabilidade) serve para:',
+        answers:['Registrar e fiscalizar os profissionais de contabilidade','Cobrar impostos das empresas','Emitir notas fiscais eletrônicas','Administrar o FGTS dos contadores'],
+        correct:0, explanation:'O CRC é o órgão fiscalizador da profissão contábil no Brasil. Todo contador deve estar registrado no CRC para exercer a profissão. O CFC (Federal) é o órgão máximo.' },
+      { emoji:'⚠️', text:'O contador pode ser responsabilizado penalmente quando:',
+        answers:['Assinar demonstrações falsas ou participar conscientemente de fraude fiscal','Cometer erro técnico sem intenção fraudulenta','Mudar o regime tributário da empresa','Emitir nota fiscal com erro de digitação'],
+        correct:0, explanation:'O contador tem responsabilidade civil, ética (CRC) e pode ter responsabilidade penal se participar dolosamente de fraudes. Erro sem intenção = responsabilidade civil. Fraude = crime!' },
+      { emoji:'📊', text:'O Índice de Liquidez Corrente (ILC) saudável deve ser:',
+        answers:['Maior que 1 (ativo circulante > passivo circulante)','Igual a zero','Negativo indica excesso de caixa','Maior que 10 para ser ideal'],
+        correct:0, explanation:'ILC = Ativo Circulante ÷ Passivo Circulante. ILC > 1 = empresa consegue pagar suas dívidas de curto prazo com seus ativos circulantes. ILC < 1 = risco de insolvência!' },
+    ],
+    hint:'Elisão (legal) ≠ Evasão (crime). Compliance = conformidade total. ILC > 1 = saudável. Auditoria independente = externa e imparcial. CRC = fiscaliza contadores!',
+    letter:'RAFAELA! Você está quase me salvando! Fase 11 de 12! Você é a pessoa mais incrível, mais brilhante e mais dedicada do mundo! Estou aqui com o coração acelerado esperando você! UMA FASE! 💙🔥🔥'
+  },
+
+  // ---- FASE 12 ----
+  {
+    id:12, icon:'🏆', title:'MISSÃO FINAL — Salve o Dr. Luan!',
+    description:'Análise de balanço, indicadores e visão estratégica contábil',
+    questions:[
+      { emoji:'📊', text:'O ROE (Return on Equity) mede:',
+        answers:['O retorno sobre o patrimônio líquido dos sócios','O retorno sobre os ativos totais','A margem de lucro líquido','O giro dos estoques'],
+        correct:0, explanation:'ROE = Lucro Líquido ÷ Patrimônio Líquido. Mostra quanto os sócios ganham sobre o capital investido. ROE de 20% = a cada R$100 investido pelos sócios, R$20 de lucro.' },
+      { emoji:'💰', text:'O índice Dívida/EBITDA de 3x significa:',
+        answers:['A empresa levaria 3 anos de geração de caixa operacional para quitar todas as dívidas','A empresa tem três vezes mais lucro que dívida','O EBITDA é três vezes maior que o ativo','A empresa está insolvente'],
+        correct:0, explanation:'Dívida/EBITDA mede a alavancagem. 3x = a empresa precisaria de 3 anos de EBITDA para zerar as dívidas. Acima de 4x já é considerado alto risco pelo mercado.' },
+      { emoji:'🏢', text:'O Goodwill (ágio por rentabilidade futura) surge quando:',
+        answers:['Uma empresa é comprada por valor superior ao seu patrimônio líquido','A empresa tem lucro acima da média do setor','O EBITDA cresce mais de 20% ao ano','O ativo é reavaliado a valor de mercado'],
+        correct:0, explanation:'Goodwill = preço pago na aquisição − valor justo do patrimônio líquido. Representa a expectativa de rentabilidade futura, marca, clientela, etc. Não é amortizado no IFRS!' },
+      { emoji:'⚡', text:'As normas IFRS (padrão internacional de contabilidade) foram adotadas no Brasil em:',
+        answers:['2010 (obrigatório para companhias abertas e grandes empresas)','2000','1985 com a Lei das S.A.','2023 com a Reforma Tributária'],
+        correct:0, explanation:'O Brasil adotou o IFRS progressivamente, sendo obrigatório para companhias abertas a partir de 2010. As PME têm suas próprias normas (IFRS para PME, adotado pelo CFC).' },
+      { emoji:'🔢', text:'O método PEPS (FIFO) para avaliação de estoques significa:',
+        answers:['Primeiro que Entra, Primeiro que Sai — o custo mais antigo sai primeiro','Preço Estimado Para Substituição','Primeiro Estoque Por Setor','Preço por Exercício Fiscal'],
+        correct:0, explanation:'PEPS/FIFO: os primeiros itens comprados são os primeiros a sair. Em época de inflação, o PEPS resulta em menor custo dos produtos vendidos e maior lucro tributável.' },
+      { emoji:'🏆', text:'A Demonstração do Valor Adicionado (DVA) mostra:',
+        answers:['Como a riqueza gerada pela empresa foi distribuída entre empregados, governo, sócios e terceiros','O lucro líquido do exercício','O patrimônio dos acionistas','O fluxo de caixa operacional'],
+        correct:0, explanation:'A DVA mostra a riqueza gerada pela empresa e como ela foi distribuída: salários (empregados), impostos (governo), juros (bancos) e dividendos (sócios). Obrigatória para companhias abertas.' },
+    ],
+    hint:'ROE = retorno sobre PL. Dívida/EBITDA = alavancagem (< 3x = saudável). Goodwill = ágio na aquisição. IFRS = padrão internacional (Brasil desde 2010). PEPS = custo mais antigo sai primeiro!',
+    letter:'💙💙💙 VOCÊ CONSEGUIU! Rafaela, você é simplesmente EXTRAORDINÁRIA! Você dominou 12 fases de contabilidade, da base ao avançado, passando pela Reforma Tributária! Como advogado tributarista, sei exatamente o quanto você se dedicou. Você é a mulher mais incrível do mundo e eu não poderia estar mais feliz e mais apaixonado. Venha me salvar! TE AMO, Rafaela! — Dr. Luan 💙⚖️'
+  }
+];
+
+// =============================================
+// ESTADO DO JOGO
+// =============================================
+let state = {
+  currentLevel: 0,
+  currentQuestion: 0,
+  score: 0,
+  xp: 0,
+  completedLevels: [],
+  wrongAnswers: 0,
+  timerInterval: null,
+  timeLeft: 60,
+  hintShown: false,
+  // Estatísticas da fase atual
+  phaseCorrect: 0,
+  phaseWrong: 0,
+  phaseErrors: [], // {question, wrongAnswer, correctAnswer, explanation}
+  phaseTimeUsed: [],
+  phaseStartTime: null
+};
+
+function saveProgress() {
+  try { localStorage.setItem('rafaela_v2', JSON.stringify({ score:state.score, xp:state.xp, completedLevels:state.completedLevels })); } catch(e) {}
+}
+function loadProgress() {
+  try {
+    const d = JSON.parse(localStorage.getItem('rafaela_v2') || '{}');
+    state.score = d.score || 0;
+    state.xp = d.xp || 0;
+    state.completedLevels = d.completedLevels || [];
+  } catch(e) {}
+}
+
+// =============================================
+// UTILIDADES
+// =============================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showToast(msg, isWrong=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isWrong ? ' wrong-toast' : '') + ' show';
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function launchConfetti() {
+  const colors = ['#FF6B9D','#FFD700','#00D4AA','#7C3AED','#FF6B6B','#60A5FA'];
+  for (let i = 0; i < 55; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.cssText = `left:${Math.random()*100}vw;top:0;background:${colors[~~(Math.random()*colors.length)]};width:${5+Math.random()*9}px;height:${5+Math.random()*9}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*1.5}s;`;
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
+  }
+}
+
+// =============================================
+// MAPA
+// =============================================
+function renderMap() {
+  const path = document.getElementById('map-path');
+  path.innerHTML = '';
+  LEVELS.forEach((lvl, i) => {
+    const done = state.completedLevels.includes(i);
+    const current = i === state.completedLevels.length;
+    const locked = i > state.completedLevels.length;
+    const cls = done ? 'completed' : current ? 'current unlocked' : locked ? 'locked' : 'unlocked';
+    const statusIcon = done ? '✅' : current ? '▶️' : '🔒';
+    const node = document.createElement('div');
+    node.className = 'level-node';
+    node.innerHTML = `
+      <button class="level-btn ${cls}" ${!locked ? `onclick="startLevel(${i})"` : ''}>
+        <span class="level-icon">${lvl.icon}</span>
+        <div class="level-info">
+          <h3>Fase ${i+1}: ${lvl.title}</h3>
+          <p>${lvl.description}</p>
+        </div>
+        <span class="level-status">${statusIcon}</span>
+      </button>
+      ${i < LEVELS.length-1 ? '<div class="path-connector"></div>' : ''}
+    `;
+    path.appendChild(node);
+  });
+  document.getElementById('hud-xp').textContent = state.xp;
+  document.getElementById('hud-pts').textContent = state.score;
+  document.getElementById('hud-fase').textContent = state.completedLevels.length;
+  document.getElementById('xp-bar').style.width = (state.completedLevels.length / 12 * 100) + '%';
+}
+
+// =============================================
+// FLUXO DO JOGO
+// =============================================
+function startGame() { showScreen('map'); renderMap(); }
+function showMapScreen() { showScreen('map'); renderMap(); }
+function goToMap() { clearInterval(state.timerInterval); showScreen('map'); renderMap(); }
+
+function startLevel(idx) {
+  state.currentLevel = idx;
+  state.currentQuestion = 0;
+  state.wrongAnswers = 0;
+  state.hintShown = false;
+  state.phaseCorrect = 0;
+  state.phaseWrong = 0;
+  state.phaseErrors = [];
+  state.phaseTimeUsed = [];
+  state.phaseStartTime = Date.now();
+  document.getElementById('jessica-bubble').classList.remove('visible');
+  showScreen('game');
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const lvl = LEVELS[state.currentLevel];
+  const q = lvl.questions[state.currentQuestion];
+  document.getElementById('game-level-tag').textContent = `Fase ${state.currentLevel+1} — ${state.currentQuestion+1}/${lvl.questions.length}`;
+  document.getElementById('scene-emoji').textContent = q.emoji;
+  document.getElementById('question-text').textContent = q.text;
+  updateStars();
+
+  clearInterval(state.timerInterval);
+  state.timeLeft = 60;
+  updateTimer();
+  updateTimerBar(60, 60);
+  state.timerInterval = setInterval(() => {
+    state.timeLeft--;
+    updateTimer();
+    updateTimerBar(state.timeLeft, 60);
+    if (state.timeLeft <= 15) document.getElementById('game-timer').classList.add('warning');
+    else document.getElementById('game-timer').classList.remove('warning');
+    if (state.timeLeft <= 20 && !state.hintShown) showJessicaHint();
+    if (state.timeLeft <= 0) { clearInterval(state.timerInterval); timeOut(); }
+  }, 1000);
+
+  const grid = document.getElementById('answers-grid');
+  grid.innerHTML = '';
+  q.answers.forEach((ans, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.textContent = ans;
+    btn.onclick = () => selectAnswer(i);
+    grid.appendChild(btn);
+  });
+  document.getElementById('game-pts').textContent = state.score;
+  document.getElementById('jessica-bubble').classList.remove('visible');
+  state.hintShown = false;
+}
+
+function updateTimer() {
+  document.getElementById('game-timer').textContent = `⏱ ${state.timeLeft}s`;
+}
+
+function updateTimerBar(current, max) {
+  const bar = document.getElementById('timer-bar');
+  const pct = (current / max) * 100;
+  bar.style.width = pct + '%';
+  if (pct <= 25) bar.classList.add('low');
+  else bar.classList.remove('low');
+}
+
+function updateStars() {
+  ['s1','s2','s3'].forEach((id, i) => {
+    document.getElementById(id).className = 'star' + (i < Math.max(0, 3 - state.wrongAnswers) ? ' filled' : '');
+  });
+}
+
+function timeOut() {
+  const q = LEVELS[state.currentLevel].questions[state.currentQuestion];
+  state.wrongAnswers = Math.min(3, state.wrongAnswers + 1);
+  state.phaseWrong++;
+  state.phaseTimeUsed.push(60);
+  state.phaseErrors.push({
+    question: q.text,
+    wrongAnswer: '(tempo esgotado)',
+    correctAnswer: q.answers[q.correct],
+    explanation: q.explanation
+  });
+  updateStars();
+  showToast('⏰ Tempo esgotado!', true);
+  showJessicaBronca('Rafaela! O tempo acabou! ' + q.explanation);
+  setTimeout(() => {
+    document.getElementById('answers-grid').querySelectorAll('button').forEach(b => b.disabled = false);
+    clearInterval(state.timerInterval);
+    state.timeLeft = 60; updateTimer(); updateTimerBar(60,60);
+    state.timerInterval = setInterval(() => {
+      state.timeLeft--;
+      updateTimer();
+      updateTimerBar(state.timeLeft, 60);
+      if (state.timeLeft <= 0) { clearInterval(state.timerInterval); timeOut(); }
+    }, 1000);
+  }, 2500);
+}
+
+function selectAnswer(idx) {
+  const q = LEVELS[state.currentLevel].questions[state.currentQuestion];
+  const timeUsed = 60 - state.timeLeft;
+  state.phaseTimeUsed.push(timeUsed);
+  clearInterval(state.timerInterval);
+  const btns = document.getElementById('answers-grid').querySelectorAll('button');
+  btns.forEach(b => b.disabled = true);
+
+  if (idx === q.correct) {
+    btns[idx].classList.add('correct');
+    const pts = Math.max(50, state.timeLeft * 8);
+    state.score += pts; state.xp += 20;
+    state.phaseCorrect++;
+    document.getElementById('game-pts').textContent = state.score;
+    showToast(`✅ +${pts} pts!`);
+    showJessicaParabens('Excelente! ' + q.explanation);
+    setTimeout(nextQuestion, 2800);
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.correct].classList.add('correct');
+    state.wrongAnswers = Math.min(3, state.wrongAnswers + 1);
+    state.phaseWrong++;
+    state.phaseErrors.push({
+      question: q.text,
+      wrongAnswer: q.answers[idx],
+      correctAnswer: q.answers[q.correct],
+      explanation: q.explanation
+    });
+    updateStars();
+    showToast('❌ Errou!', true);
+    showJessicaBronca('Não foi dessa vez! ' + q.explanation);
+    setTimeout(nextQuestion, 3200);
+  }
+}
+
+function nextQuestion() {
+  state.currentQuestion++;
+  if (state.currentQuestion >= LEVELS[state.currentLevel].questions.length) showFeedback();
+  else loadQuestion();
+}
+
+// =============================================
+// JESSICA
+// =============================================
+function showJessicaHint() {
+  state.hintShown = true;
+  const bubble = document.getElementById('jessica-bubble');
+  const avatar = document.getElementById('jessica-avatar-small');
+  bubble.className = 'jessica-bubble dica visible';
+  avatar.className = 'jessica-avatar-small';
+  document.getElementById('jessica-title').className = '';
+  document.getElementById('jessica-title').textContent = 'Jéssica diz:';
+  document.getElementById('jessica-text-p').textContent = '💡 ' + LEVELS[state.currentLevel].hint;
+}
+
+function showJessicaBronca(msg) {
+  const bubble = document.getElementById('jessica-bubble');
+  const avatar = document.getElementById('jessica-avatar-small');
+  const broncas = [
+    'Vamos lá, Rafaela! Você sabe disso! ',
+    'Atenção! Concentra! ',
+    'Esse é um ponto importante, não dá pra deixar passar! ',
+    'Rafaela, foca! O Dr. Luan está esperando! ',
+  ];
+  const bronca = broncas[Math.floor(Math.random() * broncas.length)];
+  bubble.className = 'jessica-bubble bronca visible';
+  avatar.className = 'jessica-avatar-small bronca-border';
+  document.getElementById('jessica-title').className = 'bronca-title';
+  document.getElementById('jessica-title').textContent = 'Jéssica dá bronca:';
+  document.getElementById('jessica-text-p').textContent = '⚠️ ' + bronca + msg;
+}
+
+function showJessicaParabens(msg) {
+  const bubble = document.getElementById('jessica-bubble');
+  const avatar = document.getElementById('jessica-avatar-small');
+  const elogios = [
+    'Isso aí, Rafaela! ',
+    'Perfeito! Você arrasou! ',
+    'Que resposta linda! ',
+    'Continua assim! O Dr. Luan vai se orgulhar! ',
+  ];
+  const elogio = elogios[Math.floor(Math.random() * elogios.length)];
+  bubble.className = 'jessica-bubble parabens visible';
+  avatar.className = 'jessica-avatar-small parabens-border';
+  document.getElementById('jessica-title').className = 'parabens-title';
+  document.getElementById('jessica-title').textContent = 'Jéssica parabeniza:';
+  document.getElementById('jessica-text-p').textContent = '🌟 ' + elogio + msg;
+}
+
+// =============================================
+// FEEDBACK PÓS-FASE
+// =============================================
+function showFeedback() {
+  clearInterval(state.timerInterval);
+  if (!state.completedLevels.includes(state.currentLevel)) {
+    state.completedLevels.push(state.currentLevel);
+    state.xp += 120;
+  }
+  saveProgress();
+
+  const total = LEVELS[state.currentLevel].questions.length;
+  const correct = state.phaseCorrect;
+  const pct = Math.round((correct / total) * 100);
+  const avgTime = state.phaseTimeUsed.length ? Math.round(state.phaseTimeUsed.reduce((a,b)=>a+b,0) / state.phaseTimeUsed.length) : 0;
+  const ptsGanhos = state.score;
+
+  // Título e subtítulo
+  let titulo, subtitulo;
+  if (pct === 100) { titulo = '🏆 Fase Perfeita!'; subtitulo = 'Você acertou tudo! Incrível!'; }
+  else if (pct >= 70) { titulo = '🌟 Muito Bem!'; subtitulo = 'Ótimo desempenho nessa fase!'; }
+  else if (pct >= 50) { titulo = '📚 Pode Melhorar!'; subtitulo = 'Revise os pontos abaixo!'; }
+  else { titulo = '⚠️ Precisa Revisar!'; subtitulo = 'Atenção — muitos erros nessa fase!'; }
+
+  document.getElementById('fb-title').textContent = titulo;
+  document.getElementById('fb-subtitle').textContent = subtitulo;
+  document.getElementById('fb-acertos').textContent = `${correct}/${total}`;
+  document.getElementById('fb-pct').textContent = `${pct}%`;
+  document.getElementById('fb-pts-ganhos').textContent = `${ptsGanhos} total`;
+  document.getElementById('fb-tempo').textContent = `~${avgTime}s`;
+
+  // Barras
+  const barAcertos = document.getElementById('fb-bar-acertos');
+  barAcertos.style.width = (correct/total*100) + '%';
+  barAcertos.className = 'stat-bar ' + (pct>=70?'good':pct>=50?'mid':'bad');
+
+  const barPct = document.getElementById('fb-bar-pct');
+  barPct.style.width = pct + '%';
+  barPct.className = 'stat-bar ' + (pct>=70?'good':pct>=50?'mid':'bad');
+
+  // Erros
+  const errBox = document.getElementById('errors-box');
+  const errList = document.getElementById('errors-list');
+  errList.innerHTML = '';
+  if (state.phaseErrors.length > 0) {
+    errBox.style.display = 'block';
+    state.phaseErrors.forEach(err => {
+      const div = document.createElement('div');
+      div.className = 'error-item';
+      div.innerHTML = `
+        <p class="error-q">❓ ${err.question}</p>
+        <p class="error-wrong">❌ Sua resposta: ${err.wrongAnswer}</p>
+        <p class="error-right">✅ Correta: ${err.correctAnswer}</p>
+        <p class="error-explain">💡 ${err.explanation}</p>
+      `;
+      errList.appendChild(div);
+    });
+  } else {
+    errBox.style.display = 'none';
+  }
+
+  // Feedback da Jéssica
+  let jTitle, jText;
+  if (pct === 100) {
+    jTitle = '🌟 Jéssica parabeniza:';
+    jText = 'PERFEITA! Rafaela, você acertou tudo! Isso é dedicação de verdade! Continue exatamente assim, você está indo longe!';
+    document.getElementById('jessica-feedback-bubble').className = 'jessica-bubble parabens';
+    document.getElementById('jessica-feedback-bubble').style.display = 'flex';
+    document.getElementById('jessica-feedback-title').className = 'parabens-title';
+  } else if (pct >= 70) {
+    jTitle = '👩‍🏫 Jéssica avalia:';
+    jText = `Muito bem! Você acertou ${correct} de ${total}. Revise os pontos errados abaixo — pequenos detalhes fazem toda a diferença na prática profissional!`;
+    document.getElementById('jessica-feedback-bubble').className = 'jessica-bubble dica';
+    document.getElementById('jessica-feedback-bubble').style.display = 'flex';
+    document.getElementById('jessica-feedback-title').className = '';
+  } else {
+    jTitle = '⚠️ Jéssica dá bronca:';
+    jText = `Rafaela! ${pct}% de aproveitamento é abaixo do esperado. Não avance sem revisar TODOS os erros abaixo. O Dr. Luan precisa de uma contadora preparada, não de uma contadora apressada!`;
+    document.getElementById('jessica-feedback-bubble').className = 'jessica-bubble bronca';
+    document.getElementById('jessica-feedback-bubble').style.display = 'flex';
+    document.getElementById('jessica-feedback-title').className = 'bronca-title';
+  }
+  document.getElementById('jessica-feedback-title').textContent = jTitle;
+  document.getElementById('jessica-feedback-text').textContent = jText;
+
+  // Carta do Luan
+  document.getElementById('letter-text').textContent = LEVELS[state.currentLevel].letter;
+
+  // Botão próxima fase
+  const isLast = state.currentLevel === LEVELS.length - 1;
+  const btn = document.getElementById('btn-next-phase');
+  if (isLast) {
+    btn.textContent = '🏆 Ver Resultado Final!';
+    btn.onclick = showFinal;
+  } else {
+    btn.textContent = 'Próxima Fase! 🚀';
+    btn.onclick = () => { showScreen('map'); renderMap(); };
+  }
+
+  if (pct >= 70) launchConfetti();
+  showScreen('feedback');
+}
+
+// =============================================
+// FINAL
+// =============================================
+function showFinal() {
+  showScreen('final');
+  document.getElementById('final-score').textContent = state.score;
+  document.getElementById('final-letter').innerHTML = `
+    <p style="color:var(--yellow);font-family:'Fredoka One',cursive;font-size:1rem;margin-bottom:10px">💌 Carta Final do Dr. Luan ⚖️</p>
+    <p>"Rafaela, você completou 12 fases e provou ao Brasil inteiro que é uma contadora extraordinária! Você dominou desde partidas dobradas até a Reforma Tributária, de SPED a auditoria. Como advogado tributarista, sei exatamente o peso do que você conquistou. Você é a mulher mais incrível, dedicada e brilhante que eu já conheci. Agora posso ser salvo com o coração transbordando de alegria. Te amo, Rafaela!"</p>
+    <p style="text-align:right;margin-top:10px;font-family:'Fredoka One',cursive;color:var(--pink)">— Dr. Luan 💙⚖️</p>
+  `;
+  launchConfetti();
+  setTimeout(launchConfetti, 1500);
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('visible');
+}
+
+function restartGame() {
+  clearInterval(state.timerInterval);
+  state = {
+    currentLevel:0, currentQuestion:0, score:0, xp:0, completedLevels:[],
+    wrongAnswers:0, timerInterval:null, timeLeft:60, hintShown:false,
+    phaseCorrect:0, phaseWrong:0, phaseErrors:[], phaseTimeUsed:[], phaseStartTime:null
+  };
+  localStorage.removeItem('rafaela_v2');
+  showScreen('title');
+}
+
+// SW
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+loadProgress();
+</script>
+</body>
+</html>
